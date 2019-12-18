@@ -5,7 +5,7 @@
 public class OrderExtension {
 
   public Order orderRecord {get; set;}
-  public List<OrderItem> orderItems {get; set;}
+  public List<OrderItem> orderItemList {get; set;}
   public String selectedFamily {get; set;}
   public List<chartHelper.chartData> pieData {get; set;}
   public Decimal total {get; set;}
@@ -49,12 +49,12 @@ public class OrderExtension {
   }
 
   void loadData(){
-    orderItems = new List<OrderItem>();
+    orderItemList = new List<OrderItem>();
     for (SObject obj : standardSetController.getRecords()) {
       PricebookEntry pbe = (PricebookEntry)obj;
 
       if(orderItemMap.containsKey(pbe.Product2Id)) {
-        orderItems.add(orderItemMap.get(pbe.Product2Id));
+        orderItemList.add(orderItemMap.get(pbe.Product2Id));
       } else{
         OrderItem ot = new OrderItem(
           PricebookEntryId = pbe.Id,
@@ -63,7 +63,7 @@ public class OrderExtension {
           Quantity = 0,
           Product2 = pbe.Product2
           );
-        orderItems.add(ot);
+        orderItemList.add(ot);
         orderItemMap.put(pbe.Product2Id, ot);
       }
     }
@@ -75,7 +75,7 @@ public class OrderExtension {
    * @description
    **/
   public void OnFieldChange(){
-    for (OrderItem oi : orderItems) {
+    for (OrderItem oi : orderItemList) {
       orderItemMap.put(oi.Product2Id, oi);
     }
 
