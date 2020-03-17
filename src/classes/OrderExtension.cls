@@ -5,7 +5,7 @@
 public class OrderExtension {
 
   public Order orderRecord {get; set;}
-  public List<OrderItem> orderItems {get; set;}
+  public List<OrderItem> orderItemList {get; set;}
   public String selectedFamily {get; set;}
   public List<chartHelper.chartData> pieData {get; set;}
   public Decimal total {get; set;}
