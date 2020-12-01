@@ -24,27 +24,27 @@ public class OrderHelper {
 * @return void
 **/
     public static void RollUpOrderItems(Set<Id> activatedOrderIds){
-        //ToDo: Declare a Map named "productMap" of Ids to Product2 records
-        Map<Id, Product2> productMap = new Map<Id, Product2>();
-        Set<Id> productIds = new Set<Id>();
+//         //ToDo: Declare a Map named "productMap" of Ids to Product2 records
+//         Map<Id, Product2> productMap = new Map<Id, Product2>();
+//         Set<Id> productIds = new Set<Id>();
         
-        //ToDo: Loop through a query of OrderItems related to the activatedOrderIds
-        for ( OrderItem oi : [SELECT Id, Product2Id, Product2.Quantity_Ordered__c, Quantity FROM OrderItem WHERE OrderId IN :activatedOrderIds]){
-            productIds.add(oi.Product2Id);
-        }
+//         //ToDo: Loop through a query of OrderItems related to the activatedOrderIds
+//         for ( OrderItem oi : [SELECT Id, Product2Id, Product2.Quantity_Ordered__c, Quantity FROM OrderItem WHERE OrderId IN :activatedOrderIds]){
+//             productIds.add(oi.Product2Id);
+//         }
         
-        //ToDo: Populate the map with the Id of the related Product2 as the key and Product2 record as the value
-        productMap = new Map<Id, Product2>([Select Id, Quantity_Ordered__c FROM Product2 WHERE Id IN :productIds]);
+//         //ToDo: Populate the map with the Id of the related Product2 as the key and Product2 record as the value
+//         productMap = new Map<Id, Product2>([Select Id, Quantity_Ordered__c FROM Product2 WHERE Id IN :productIds]);
         
-        //ToDo: Loop through a query that aggregates the OrderItems related to the Products in the ProductMap keyset
-        for(AggregateResult ar : [SELECT Product2Id, SUM(Quantity) activatedQuantity FROM OrderItem
-           WHERE Product2Id IN :productMap.keySet() GROUP BY Product2Id]){
-               productMap.get((String)ar.get('Product2Id')).Quantity_Ordered__c = Integer.valueOf(ar.get('activatedQuantity'));
-        }
-        //ToDo: Perform an update on the records in the productMap
-        if(productMap != null && productMap.size() > 0){
-            update productMap.values();
-        }
+//         //ToDo: Loop through a query that aggregates the OrderItems related to the Products in the ProductMap keyset
+//         for(AggregateResult ar : [SELECT Product2Id, SUM(Quantity) activatedQuantity FROM OrderItem
+//            WHERE Product2Id IN :productMap.keySet() GROUP BY Product2Id]){
+//                productMap.get((String)ar.get('Product2Id')).Quantity_Ordered__c = Integer.valueOf(ar.get('activatedQuantity'));
+//         }
+//         //ToDo: Perform an update on the records in the productMap
+//         if(productMap != null && productMap.size() > 0){
+//             update productMap.values();
+//         }
     }
     
 }
